@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+</head>
+<body>
+    <h1 >Hello, World!</h1>
+    <p>This is a basic HTML document.</p>
+
+    <h1 id ="bc">bb </h1>
+
+
+
+
+
+
+    <script>
+        var ws = new WebSocket('ws://127.0.0.1:8000/ws/sc/');
+        ws.onopen = function() {
+            console.log('WebSocket connection open');
+            ws.send(JSON.stringify({
+                'type': 'websocket.receive',
+                'text': 'message from client'
+            }));
+        };
+    
+        ws.onmessage = function(event) {
+            console.log('message received from server', event.data);
+            document.getElementById("bc").innertext=event.data
+        };
+    
+        ws.onerror = function(event) {
+            console.log("websocket error", event);
+        };
+    
+        ws.onclose = function(event) {
+            console.log("WebSocket closed", event);
+            // Add more details about the close event
+            console.log("Code:", event.code);
+            console.log("Reason:", event.reason);
+        };
+    </script>
+    
+
+</body>
+</html>

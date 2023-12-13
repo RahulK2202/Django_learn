@@ -6,6 +6,7 @@
     <title>Your Page Title</title>
 </head>
 <body>
+    <h1>group name:  {{groupname}} </h1>
     <h1>Hello, World!</h1>
     <p>This is a basic HTML document.</p>
 
@@ -16,8 +17,26 @@
     <input type="text" name=" " id="chat-message-input" size="100"></br>
     <input type="button" value="send" id="chat-message-submit">
 
+{{groupname| json_script:"group-name"}}
+
+
+
     <script>
-        var ws = new WebSocket('ws://127.0.0.1:8000/ws/sc/');
+        console.log("reacheddd")
+        const groupName = JSON.parse(document.getElementById('group-name').textContent);
+console.log(groupName);
+
+
+        {% comment %} var ws = new WebSocket('ws://127.0.0.1:8000/ws/sc/'); {% endcomment %}
+
+        var ws = new WebSocket(
+            "ws://"
+            + window.location.host 
+            + '/ws/sc/' + groupName + '/'
+        );
+        console.log("WebSocket connection URL:", ws.url);
+
+        
         ws.onopen = function() {
             console.log('WebSocket connection open');
             ws.send("hi from client");

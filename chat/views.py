@@ -4,5 +4,6 @@ from django.shortcuts import render
 def Job(request):
     return render(request,'pages/index.html')
 
-def Chatting(request):
-    return render(request,'pages/Chatpage.html')
+def Chatting(request,group_name):
+    print(group_name)
+    return render(request,'pages/Chatpage.html',{'groupname': group_name})
